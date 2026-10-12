@@ -8,6 +8,8 @@ The earlier custom landing-page design has been removed, including navigation, i
 
 ## Checks performed
 
+- GitHub Pages deployed successfully: https://anonymous5469.github.io/itzfizz-midnight/. Live Chromium smoke checks passed at 1440×900, 768×1024, and 375×812: 0/25/50/75/100% and reverse, zero-hidden/completed headline, nose/trail alignment, and no horizontal overflow. Car and both self-hosted fonts loaded; no HTTP resource failures, console errors, or page exceptions. GitHub Actions build and deployment succeeded.
+
 - `npm run build`: successful production output.
 - Development Chromium acceptance suite: **21/21 passed**, including React Strict Mode and console-error assertions.
 - Production preview at `http://localhost:4173`: **21/21 tests passed**. Tests reused the running Vite production preview, not the development server.
@@ -59,7 +61,6 @@ The earlier custom landing-page design has been removed, including navigation, i
 - Latest Safari/Firefox compatibility and physical-phone gestures/orientation changes.
 - Stable 60fps, performance trace results, or production LCP/CLS/INP.
 - Pixel-identical vehicle artwork: the car SVG is original, not the reference McLaren asset.
-- Hosted demo or repository publication.
 - Measured car-shadow/filter compositing cost on low-end hardware. Shadows/glow are static layers carried by the existing car transform; statistic backdrop blur has been removed entirely.
 
 These are verification limits, not claims that those checks have passed.
