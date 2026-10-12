@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@font-face { font-family: 'Space Grotesk'; src: url('/fonts/space-grotesk.ttf') format('truetype'); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('/fonts/inter.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+
+:root {
+  --bg: #0b0d10;
+  --accent: #c6ff3d;
+  --text: #ffffff;
+  --muted: #b1b8c2;
+  --stat-label: #c3cad3;
+  font-family: 'Inter', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+::selection { background: var(--accent); color: var(--bg); }
+.hero-section { position: relative; height: 300svh; }
+.hero-scene {
+  --road-height: 200px;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse at 18% 45%, #c6ff3d09, transparent 48%), radial-gradient(ellipse at 82% 54%, #789ab00c, transparent 48%), radial-gradient(ellipse at 50% 48%, #1b2027 0%, transparent 68%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.route { padding-inline: clamp(8px, 1vw, 16px); position: relative; width: 100%; height: var(--road-height); background: #11151a; background-image: linear-gradient(180deg, #0e1116, #181d23 50%, #0e1116); box-shadow: 0 1px 0 #ffffff0a, 0 -1px 0 #ffffff0a, 0 30px 80px #00000040; overflow: hidden; isolation: isolate; }
+.trail { position: absolute; inset: 0; background: linear-gradient(180deg, #c6ff3d00, #c6ff3d12 25%, #c6ff3d30 50%, #c6ff3d12 75%, #c6ff3d00); transform-origin: left; transform: scaleX(0); z-index: 1; }
+.trail::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, #c6ff3d00, #c6ff3d99); box-shadow: 0 0 18px #c6ff3d30, 0 0 32px #c6ff3d14; }
+.scroll-hint { position: absolute; bottom: clamp(16px, 3svh, 28px); left: 50%; transform: translateX(-50%); margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; line-height: 1.2; letter-spacing: 0.2em; white-space: nowrap; pointer-events: none; }
+.scroll-hint::after { content: ''; width: 1px; height: 18px; background: linear-gradient(var(--accent), #c6ff3d00); }
+.headline {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  margin: 0;
+  display: flex;
+  gap: 0;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  font-size: clamp(24px, 8.2vw, 118px);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--text);
+  z-index: 2;
+  clip-path: inset(0 100% 0 0);
+}
+.headline-char { position: relative; display: inline-block; }
+.headline-content { display: flex; gap: inherit; flex-shrink: 0; }
+.car {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  height: calc(100% - 16px);
+  aspect-ratio: 13 / 6;
+  z-index: 3;
+  will-change: transform;
+}
+.car::before { content: ''; position: absolute; inset: 17% 7% 10%; border-radius: 50%; background: #0000008c; filter: blur(16px); transform: translateY(8px); }
+.car::after { content: ''; position: absolute; inset: 8% 4%; border-radius: 50%; background: radial-gradient(ellipse at 70% 50%, #c6ff3d14, #c6ff3d00 72%); z-index: -1; }
+.car img { position: relative; display: block; width: 100%; height: 100%; filter: drop-shadow(0 3px 3px #00000080); }
+.metrics { list-style: none; padding: 0; margin: 0; }
+.metric-card {
+  position: absolute;
+  z-index: 4;
+  width: clamp(220px, 22vw, 300px);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  opacity: 0;
+  /* Keep semantic content available to screen readers even before its visual reveal. */
+}
+.metric-card-1 { top: 11%; left: 10%; }
+.metric-card-2 { bottom: 11%; left: 10%; }
+.metric-card-3 { top: 11%; right: 10%; }
+.metric-card-4 { bottom: 11%; right: 10%; }
+.metric-value { font-family: 'Space Grotesk', Arial, sans-serif; color: var(--text); font-size: clamp(52px, 4.6vw, 68px); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.04em; line-height: 1; margin: 0; }
+.metric-percent { color: var(--accent); font-size: 0.5em; letter-spacing: -0.03em; margin-left: 0.12em; }
+.metric-description { max-width: 22ch; color: var(--stat-label); font-size: 15px; letter-spacing: 0.01em; margin: 0; line-height: 1.6; text-wrap: balance; }
+.car-fallback { position: absolute; inset: 5% calc((1 - var(--car-front-ratio)) * 100%) 5% 2%; background: #fa861c; border-radius: 27% 38% 38% 27%; border: 2px solid #aa510b; }
+.car-fallback span { position: absolute; inset: 14% 30%; border-radius: 22%; background: #262626; }
+.car-fallback i { position: absolute; width: 10%; height: 15%; background: #f0f0e5; right: 4%; top: 12%; }
+.car-fallback i:last-child { top: auto; bottom: 12%; }
+
+@media (max-width: 1199px) {
+  .metric-card { width: 29%; max-width: 310px; }
+  .metric-card-1, .metric-card-2 { left: 8%; }
+  .metric-card-3, .metric-card-4 { right: 8%; }
+}
+@media (max-width: 767px) {
+  .scroll-hint { bottom: 8px; }
+  .hero-scene { --road-height: clamp(160px, 44vw, 210px); }
+  .headline { top: 12px; font-size: clamp(24px, 8.2vw, 54px); }
+  .car { top: auto; bottom: 8px; height: clamp(72px, 23vw, 110px); }
+  .metric-card { width: calc(50% - 24px); gap: 10px; }
+  .metric-card-1, .metric-card-3 { right: auto; left: 16px; }
+  .metric-card-2, .metric-card-4 { right: 16px; left: auto; }
+  .metric-card-1, .metric-card-2 { top: 8%; bottom: auto; }
+  .metric-card-3, .metric-card-4 { bottom: 8%; top: auto; }
+  .metric-value { font-size: clamp(40px, 11vw, 56px); }
+  .metric-description { font-size: 14px; line-height: 1.5; }
+}
+@media (max-height: 600px) {
+  .scroll-hint { bottom: 5px; flex-direction: row; gap: 8px; font-size: 10px; }
+  .scroll-hint::after { height: 10px; }
+  .hero-scene { --road-height: clamp(100px, 28svh, 160px); }
+  .headline { font-size: clamp(24px, min(8.2vw, 17svh), 128px); }
+  .metric-card-1, .metric-card-3 { top: 4%; }
+  .metric-card-2, .metric-card-4 { bottom: 4%; }
+  .metric-value { font-size: clamp(26px, 7svh, 40px); }
+  .metric-description { font-size: 13px; line-height: 1.45; }
+}
+@media (max-height: 600px) and (max-width: 767px) {
+  .hero-scene { --road-height: clamp(140px, min(44vw, 32svh), 180px); }
+  .headline { font-size: clamp(24px, 8.2vw, 54px); }
+  .car { height: clamp(64px, 20vw, 90px); }
+  .metric-card-1, .metric-card-2 { top: 4%; bottom: auto; }
+  .metric-card-3, .metric-card-4 { bottom: 6%; top: auto; }
+}
+@media (max-height: 360px) {
+  .metric-value { font-size: 24px; }
+  .metric-description { font-size: 12px; }
+  .hero-scene { --road-height: 90px; }
+}
+@media (max-height: 360px) and (max-width: 767px) {
+  .hero-scene { --road-height: 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-section { height: 100svh; }
+  .hero-scene { position: relative; }
+  .metric-card { opacity: 1; transform: none; }
+  .headline { clip-path: none; }
+  .headline-content { opacity: 1; transform: none; }
+  .trail { transform: scaleX(1); }
+  .car { display: none; will-change: auto; }
+  .scroll-hint { display: none; }
+}

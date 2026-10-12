@@ -1,0 +1,24 @@
+{
+  "name": "itzfizz-scroll-experience",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.1",
+    "@tailwindcss/vite": "4.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "4.1.0",
+    "vite": "^6.1.0"
+  }
+}
